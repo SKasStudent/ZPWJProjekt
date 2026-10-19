@@ -76,7 +76,11 @@ public class XmlHandler {
                     case XMLStreamConstants.END_ELEMENT:
                         name = streamReader.getLocalName();
                         if(name.equals("Wood")){
-                            woodList.add(createWoodObject(fields));
+                            try {
+                                woodList.add(createWoodObject(fields));
+                            }catch(LackingWoodDataException e){
+                                System.out.println("Error while creating wood object: " + e.getMessage());
+                            }
                             fields = null;
                         }
                 }
@@ -91,7 +95,19 @@ public class XmlHandler {
         return woodList;
     }
 
-    public Wood createWoodObject(Map<String,String> fields){
-        return new Wood(fields.get("Species"), fields.get("Type"), fields.get("Origin"), fields.get("Color"), Double.parseDouble(fields.get("AvailableStock")));
+    public Wood createWoodObject(Map<String,String> fields) throws LackingWoodDataException{
+        String AvailableStockText = fields.get("AvailableStock");
+        if(AvailableStockText==null){
+            throw new LackingWoodDataException("AvailableStock field invalid - null");
+        }
+
+        double AvailableStock;
+        try{
+            AvailableStock = Double.parseDouble(AvailableStockText);
+        }catch(NumberFormatException e){
+            throw new LackingWoodDataException("AvailableStock field invalid - not a number");
+        }
+
+        return new Wood(fields.get("Species"), fields.get("Type"), fields.get("Origin"), fields.get("Color"), AvailableStock);
     }
 }

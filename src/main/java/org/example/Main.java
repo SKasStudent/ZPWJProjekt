@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Main {
-    static void main() {
+    static void main() throws Exception {
         String[] lista1= {"Brzoza", "Dab", "Buk", "Topola", "Sosna","Dab", "Olszyna", "Brzoza", "Brzoza1"};
         //1
         System.out.println("zad1");
@@ -79,12 +79,13 @@ public class Main {
         Path path = Path.of("WoodCatalogue.xml");
 
         List<Wood> woods = List.of(
-                new Wood("Dąb", "Liściaste", "Polska", "Jasnobrązowy", 120.5),
-                new Wood("Sosna", "Iglaste", "Szwecja", "Żółtawy", 340.0),
-                new Wood("Mahoń", "Liściaste", "Honduras", "Czerwonobrązowy", 45.75)
+                new Wood("Dąb", "Liściaste", "Polska", "Jasnobrązowy", 17.12),
+                new Wood("Sosna", "Iglaste", "Szwecja", "Żółtawy", 124.54),
+                new Wood("Mahoń", "Liściaste", "Honduras", "Czerwonobrązowy", 45.34),
+                new Wood("Brzoza", "Liściaste", "Polska", "Kremowy", 54.23)
         );
 
-        handler.createXml(woods, path);
+        //handler.createXml(woods, path);
 
         System.out.println("XML:");
         try {

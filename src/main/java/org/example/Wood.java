@@ -7,7 +7,12 @@ public class Wood {
     private String Color;
     private Double AvailableStock;
 
-    public Wood(String Species, String Type, String Origin, String Color, Double AvailableStock){
+    public Wood(String Species, String Type, String Origin, String Color, Double AvailableStock) throws LackingWoodDataException{
+        if(Species==null||Species.isEmpty()){ throw new LackingWoodDataException("Species field invalid");}
+        if(Type==null||Type.isEmpty()){ throw new LackingWoodDataException("Type field invalid");}
+        if(Origin==null||Origin.isEmpty()){ throw new LackingWoodDataException("Origin field invalid");}
+        if(Color==null||Color.isEmpty()){ throw new LackingWoodDataException("Color field invalid");}
+        if(AvailableStock==null||AvailableStock<0){ throw new LackingWoodDataException("AvailableStock field invalid");}
         this.Species = Species;
         this.Type = Type;
         this.Origin = Origin;
