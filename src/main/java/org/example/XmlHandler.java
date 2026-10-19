@@ -2,17 +2,20 @@ package org.example;
 
 import java.io.*;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.xml.stream.*;
 
 public class XmlHandler {
-    public void createXml(List<Wood> woodList) {
+    public void createXml(List<Wood> woodList, Path XmlPath) {
         try{
-            OutputStream out = new FileOutputStream("WoodCatalogue.xml");
+            OutputStream out = new FileOutputStream(XmlPath.toFile());
             XMLOutputFactory outputFactory = XMLOutputFactory.newFactory();
             XMLStreamWriter streamWriter = outputFactory.createXMLStreamWriter(out);
 
-            streamWriter.writeStartDocument("UTF-8");
+            streamWriter.writeStartDocument("UTF-8","1.0");
             streamWriter.writeStartElement("WoodCatalogue");
 
             woodList.forEach(wood -> {
@@ -50,22 +53,32 @@ public class XmlHandler {
         }
     }
 
-    public void readXml(Path XmlPath){
-
+    public List<Wood> readXml(Path XmlPath){
+        List<Wood> woodList = new ArrayList<>();
         try {
-            InputStream in = new FileInputStream(XmlPath.toString());
+            InputStream in = new FileInputStream(XmlPath.toFile());
             XMLInputFactory inputFactory = XMLInputFactory.newFactory();
             XMLStreamReader streamReader = inputFactory.createXMLStreamReader(in);
+
+            Map<String,String> fields = null;
 
             while(streamReader.hasNext()){
                 int event = streamReader.next();
                 switch(event){
                     case XMLStreamConstants.START_ELEMENT:
-                        System.out.println("<==" + streamReader.getLocalName() + "==>");
+                        String name = streamReader.getLocalName();
+                        if(name.equals("Wood")){
+                            fields = new HashMap<>();
+                        } else if(fields != null) {
+                            fields.put(name, streamReader.getElementText().trim());
+                        }
                         break;
-                    case XMLStreamConstants.CHARACTERS:
-                        System.out.println("-" + streamReader.getText().trim());
-                        break;
+                    case XMLStreamConstants.END_ELEMENT:
+                        name = streamReader.getLocalName();
+                        if(name.equals("Wood")){
+                            woodList.add(createWoodObject(fields));
+                            fields = null;
+                        }
                 }
             }
 
@@ -75,5 +88,10 @@ public class XmlHandler {
         } catch(Exception e){
             e.printStackTrace();
         }
+        return woodList;
+    }
+
+    public Wood createWoodObject(Map<String,String> fields){
+        return new Wood(fields.get("Species"), fields.get("Type"), fields.get("Origin"), fields.get("Color"), Double.parseDouble(fields.get("AvailableStock")));
     }
 }

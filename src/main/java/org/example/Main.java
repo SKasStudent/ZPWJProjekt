@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -72,5 +73,27 @@ public class Main {
         }catch(IOException e){
             System.err.println(e.getMessage());
         }
+
+        //Lab 2 Z1
+        XmlHandler handler = new XmlHandler();
+        Path path = Path.of("WoodCatalogue.xml");
+
+        List<Wood> woods = List.of(
+                new Wood("Dąb", "Liściaste", "Polska", "Jasnobrązowy", 120.5),
+                new Wood("Sosna", "Iglaste", "Szwecja", "Żółtawy", 340.0),
+                new Wood("Mahoń", "Liściaste", "Honduras", "Czerwonobrązowy", 45.75)
+        );
+
+        handler.createXml(woods, path);
+
+        System.out.println("XML:");
+        try {
+            System.out.println(Files.readString(path));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("LISTA Z XML:");
+        handler.readXml(path).forEach(System.out::println);
+
     }
 }
