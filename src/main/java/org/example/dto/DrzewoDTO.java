@@ -13,6 +13,12 @@ public class DrzewoDTO {
     private double wysokosc;
     private double srednica;
     private boolean sciete;
+    private boolean aktywny = true;
+
+    public DrzewoDTO(Long id, String gatunek, double wysokosc,
+                     double srednica, boolean sciete) {
+        this(id, gatunek, wysokosc, srednica, sciete, true);
+    }
 
     public static DrzewoDTO mapuj(Drzewo drzewo) {
         return new DrzewoDTO(
@@ -20,12 +26,13 @@ public class DrzewoDTO {
                 drzewo.getGatunek(),
                 drzewo.getWysokosc(),
                 drzewo.getSrednica(),
-                drzewo.isSciete()
+                drzewo.isSciete(),
+                drzewo.isAktywny()
         );
     }
 
     public Drzewo przywrocEncje() {
-        return new Drzewo(id,gatunek,wysokosc,srednica,sciete);
+        return new Drzewo(id,gatunek,wysokosc,srednica,sciete,aktywny);
     }
 
 }
