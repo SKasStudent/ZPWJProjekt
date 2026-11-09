@@ -1,5 +1,8 @@
 package org.example;
 
+import org.example.dto.DrzewoDTO;
+import org.example.encje.*;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,8 +13,11 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+
 public class Main {
     static void main() throws Exception {
+        /*
+        //Lab 1
         String[] lista1= {"Brzoza", "Dab", "Buk", "Topola", "Sosna","Dab", "Olszyna", "Brzoza", "Brzoza1"};
         //1
         System.out.println("zad1");
@@ -73,7 +79,8 @@ public class Main {
         }catch(IOException e){
             System.err.println(e.getMessage());
         }
-
+        */
+        /*
         //Lab 2 Z1
         XmlHandler handler = new XmlHandler();
         Path path = Path.of("WoodCatalogue.xml");
@@ -95,6 +102,65 @@ public class Main {
         }
         System.out.println("LISTA Z XML:");
         handler.readXml(path).forEach(System.out::println);
+        */
+        //LAB4
 
+        //zad1
+        System.out.println("zad1");
+
+        Drzewo drzewo = new Drzewo(1L, "Sosna", 18.5, 40.0, false);
+        Pracownik pracownik = new Pracownik(1L, "Jan", "Pilarz", 5200.0);
+        Deska deska = new Deska(1L, "Sosna", 2.5, 0.15, 0.025);
+
+        System.out.println("Drzewo: " + drzewo.getGatunek());
+        System.out.println("Pracownik: " + pracownik.getImie());
+        System.out.println("Drzewo: " + deska.getDlugosc());
+
+
+        //zad2
+        System.out.println("zad2");
+        DrzewoBuilder drzewoB = DrzewoBuilder.builder()
+                .id(1L)
+                .gatunek("Dab")
+                .wysokosc(18.5)
+                .srednica(45.0)
+                .sciete(false)
+                .build();
+        PracownikBuilder pracownikB = PracownikBuilder.builder()
+                .id(1L)
+                .imie("Jan")
+                .stanowisko("Pilarz")
+                .pensja(5200.0)
+                .build();
+        DeskaBuilder deskaB = DeskaBuilder.builder()
+                .id(1L)
+                .gatunekDrewna("Sosna")
+                .dlugosc(2.5)
+                .szerokosc(0.15)
+                .grubosc(0.025)
+                .build();
+
+        System.out.println("Drzewo: " + drzewoB.getGatunek());
+        System.out.println("Pracownik: " + pracownikB.getImie());
+        System.out.println("Drzewo: " + deskaB.getDlugosc());
+
+        //zad3
+        System.out.println("zad3");
+        Drzewo drzewo1 = new Drzewo(
+                10L, "Sosna", 15.0, 30.0, false
+        );
+
+        DrzewoDTO kopia = DrzewoDTO.mapuj(drzewo1);
+
+        System.out.println("Przed zmiana: " + drzewo1.getGatunek() + ", " + drzewo1.isSciete());
+
+        drzewo1.setGatunek("Dab");
+        drzewo1.setSciete(true);
+
+        System.out.println("Po zmianie: " + drzewo1.getGatunek() + ", " + drzewo1.isSciete());
+
+        drzewo1 = kopia.przywrocEncje();
+
+        System.out.println("Po wycofaniu: " + drzewo1.getGatunek() + ", " + drzewo1.isSciete());
     }
 }
