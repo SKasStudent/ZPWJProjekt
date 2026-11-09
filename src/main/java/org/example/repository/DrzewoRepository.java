@@ -1,4 +1,3 @@
-
 package org.example.repository;
 
 import org.example.encje.Drzewo;
@@ -38,7 +37,7 @@ public class DrzewoRepository {
         jdbc.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(
                     "INSERT INTO drzewa (gatunek, wysokosc, srednica, sciete, aktywny) VALUES (?, ?, ?, ?, ?)",
-                    Statement.RETURN_GENERATED_KEYS
+                    new String[]{"id"}
             );
 
             ps.setString(1, drzewo.getGatunek());

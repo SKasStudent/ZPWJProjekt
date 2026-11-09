@@ -1,4 +1,3 @@
-
 package org.example.repository;
 
 import org.example.encje.Pracownik;
@@ -37,7 +36,7 @@ public class PracownikRepository {
         jdbc.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(
                     "INSERT INTO pracownicy (imie, stanowisko, pensja, aktywny) VALUES (?, ?, ?, ?)",
-                    Statement.RETURN_GENERATED_KEYS
+                    new String[]{"id"}
             );
 
             ps.setString(1, pracownik.getImie());

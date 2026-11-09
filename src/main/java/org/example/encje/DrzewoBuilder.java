@@ -8,7 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class DrzewoBuilder {
-    @NonNull
     private Long id;
     private String gatunek;
     private double wysokosc;

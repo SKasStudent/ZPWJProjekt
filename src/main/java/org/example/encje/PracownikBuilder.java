@@ -8,7 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class PracownikBuilder {
-    @NonNull
     private Long id;
     private String imie;
     private String stanowisko;

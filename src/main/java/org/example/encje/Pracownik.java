@@ -7,7 +7,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Pracownik {
-    @NonNull
     private Long id;
     private String imie;
     private String stanowisko;
