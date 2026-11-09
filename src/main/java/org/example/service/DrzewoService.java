@@ -1,7 +1,8 @@
 package org.example.service;
 
 import org.example.encje.Drzewo;
-import org.example.repository.DrzewoRepository;
+//import org.example.repository.DrzewoRepository;
+import org.example.repository.jpa.DrzewoJpaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -11,9 +12,9 @@ import java.util.List;
 @Service
 public class DrzewoService {
 
-    private final DrzewoRepository repo;
+    private final DrzewoJpaRepository repo;
 
-    public DrzewoService(DrzewoRepository repo) {
+    public DrzewoService(DrzewoJpaRepository repo) {
         this.repo = repo;
     }
 
@@ -36,27 +37,24 @@ public class DrzewoService {
     }
 
     public Drzewo update(Long id, Drzewo drzewo) {
-        if (repo.update(id, drzewo) == 0) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Nie znaleziono drzewa: " + id
-            );
-        }
-        return getOne(id);
+        Drzewo istniejace = getOne(id);
+
+        istniejace.setGatunek(drzewo.getGatunek());
+        istniejace.setWysokosc(drzewo.getWysokosc());
+        istniejace.setSrednica(drzewo.getSrednica());
+        istniejace.setSciete(drzewo.isSciete());
+
+        return repo.save(istniejace);
     }
 
     public void makeInactive(Long id) {
-        if (repo.makeInactive(id) == 0) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Nie znaleziono drzewa: " + id
-            );
-        }
+        Drzewo drzewo = getOne(id);
+        drzewo.setAktywny(false);
+        repo.save(drzewo);
     }
 
     public void delete(Long id) {
-        if (repo.delete(id) == 0) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Nie znaleziono drzewa: " + id
-            );
-        }
+        Drzewo drzewo = getOne(id);
+        repo.delete(drzewo);
     }
 }
