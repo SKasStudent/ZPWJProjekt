@@ -12,4 +12,10 @@ public class Drzewo {
     private double wysokosc;
     private double srednica;
     private boolean sciete;
+    private boolean aktywny = true;
+
+    public Drzewo(Long id, String gatunek, double wysokosc,
+                  double srednica, boolean sciete) {
+        this(id, gatunek, wysokosc, srednica, sciete, true);
+    }
 }

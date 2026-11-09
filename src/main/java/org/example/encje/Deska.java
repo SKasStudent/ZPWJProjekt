@@ -7,7 +7,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Deska {
-    @NonNull
     private Long id;
     private String gatunekDrewna;
     private double dlugosc;

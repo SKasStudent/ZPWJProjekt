@@ -11,4 +11,9 @@ public class Pracownik {
     private String imie;
     private String stanowisko;
     private double pensja;
+    private boolean aktywny = true;
+
+    public Pracownik(Long id, String imie, String stanowisko, double pensja) {
+        this(id, imie, stanowisko, pensja, true);
+    }
 }
