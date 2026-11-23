@@ -16,4 +16,9 @@ public class UniversityWorker {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "Wydzial: " + department + "Imie: " + name;
+    }
 }

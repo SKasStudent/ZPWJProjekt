@@ -2,6 +2,8 @@ package org.example;
 
 import org.example.dto.DrzewoDTO;
 import org.example.encje.*;
+import org.example.models.DeanHours;
+import org.example.models.UniversityWorker;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -12,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static org.example.service.JSoupService.*;
 
 
 public class Main {
@@ -163,6 +167,30 @@ public class Main {
         drzewo1 = kopia.przywrocEncje();
 
         System.out.println("Po wycofaniu: " + drzewo1.getGatunek() + ", " + drzewo1.isSciete());
+        */
+
+        //Lab7
+
+        List<UniversityWorker> w = getWorkers();
+        List<UniversityWorker> d = getDoctors();
+        //List<DeanHours> dh = getDeanHours();
+
+        System.out.println("=========PRACOWNICY=========");
+
+        for(UniversityWorker worker: w){
+            System.out.println(worker.toString());
+        }
+
+        System.out.println("=========DOKTORZY=========");
+
+        for(UniversityWorker doctor: d){
+            System.out.println(doctor.toString());
+        }
+
+        /* Status 503 - stronka nie pozwala na skanowanie
+        for(DeanHours godzinki: dh){
+            System.out.println(godzinki.toString());
+        }
         */
     }
 }
