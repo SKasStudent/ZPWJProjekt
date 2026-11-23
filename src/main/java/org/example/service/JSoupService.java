@@ -56,4 +56,18 @@ public class JSoupService {
 
         return workerList;
     }
+
+    public static List<UniversityWorker> getDoctors() throws IOException {
+        List<UniversityWorker> w = getWorkers();
+        List<UniversityWorker> doctorsList = new ArrayList<>();
+
+        for( UniversityWorker worker: w){
+            String name = worker.getName().toLowerCase();
+
+            if(name.startsWith("dr ")){
+                doctorsList.add(worker);
+            }
+        }
+        return doctorsList;
+    }
 }
