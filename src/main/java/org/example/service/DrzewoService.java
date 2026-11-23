@@ -57,4 +57,41 @@ public class DrzewoService {
         Drzewo drzewo = getOne(id);
         repo.delete(drzewo);
     }
+
+    public List<Drzewo> getActive() {
+        return repo.findAll().stream()
+                .filter(Drzewo::isAktywny)
+                .toList();
+    }
+
+    public List<Drzewo> getByGatunek(String gatunek) {
+        if (gatunek == null || gatunek.isBlank()) {
+            throw new IllegalArgumentException(
+                    "Gatunek nie moze byc pusty"
+            );
+        }
+
+        return repo.findAll().stream()
+                .filter(d -> d.getGatunek().equalsIgnoreCase(gatunek.trim()))
+                .toList();
+    }
+
+    public List<Drzewo> getByMinWysokosc(double minWysokosc) {
+        if (!Double.isFinite(minWysokosc) || minWysokosc < 0) {
+            throw new IllegalArgumentException(
+                    "Minimalna wysokosc musi byc liczba nieujemna"
+            );
+        }
+
+        return repo.findAll().stream()
+                .filter(d -> d.getWysokosc() >= minWysokosc)
+                .toList();
+    }
+    
+    public long countActive() {
+        return repo.findAll().stream()
+                .filter(Drzewo::isAktywny)
+                .count();
+    }
+
 }
