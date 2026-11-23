@@ -56,4 +56,42 @@ public class PracownikService {
         Pracownik pracownik = getOne(id);
         repo.delete(pracownik);
     }
+
+    public List<Pracownik> getActive() {
+        return repo.findAll().stream()
+                .filter(Pracownik::isAktywny)
+                .toList();
+    }
+
+    public List<Pracownik> getByStanowisko(String stanowisko) {
+        if (stanowisko == null || stanowisko.isBlank()) {
+            throw new IllegalArgumentException(
+                    "Stanowisko nie moze byc puste"
+            );
+        }
+
+        return repo.findAll().stream()
+                .filter(p -> p.getStanowisko()
+                        .equalsIgnoreCase(stanowisko.trim()))
+                .toList();
+    }
+
+    public List<Pracownik> getByMinPensja(double minPensja) {
+        if (!Double.isFinite(minPensja) || minPensja < 0) {
+            throw new IllegalArgumentException(
+                    "Minimalna pensja musi byc liczba nieujemna"
+            );
+        }
+
+        return repo.findAll().stream()
+                .filter(p -> p.getPensja() >= minPensja)
+                .toList();
+    }
+
+    public long countActive() {
+        return repo.findAll().stream()
+                .filter(Pracownik::isAktywny)
+                .count();
+    }
+
 }
