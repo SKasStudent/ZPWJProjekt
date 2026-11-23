@@ -14,3 +14,10 @@ CREATE TABLE IF NOT EXISTS pracownicy (
     pensja DOUBLE PRECISION NOT NULL,
     aktywny BOOLEAN NOT NULL DEFAULT TRUE
     );
+
+CREATE TABLE IF NOT EXISTS uzytkownicy (
+                                           id BIGSERIAL PRIMARY KEY,
+                                           login VARCHAR(100) NOT NULL UNIQUE,
+    haslo_hash VARCHAR(255) NOT NULL,
+    rola VARCHAR(20) NOT NULL DEFAULT 'USER'
+    );

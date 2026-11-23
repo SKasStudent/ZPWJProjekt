@@ -68,7 +68,7 @@
             <artifactId>jsoup</artifactId>
             <version>1.23.2</version>
         </dependency>
-        
+
         <!-- Lab 8 - logowanie i autoryzacja -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
