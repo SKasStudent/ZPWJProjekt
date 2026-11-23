@@ -1,4 +1,6 @@
-package org.example;
+package org.example.models;
+
+import org.example.LackingWoodDataException;
 
 public class Wood {
     private String Species;
@@ -7,7 +9,7 @@ public class Wood {
     private String Color;
     private Double AvailableStock;
 
-    public Wood(String Species, String Type, String Origin, String Color, Double AvailableStock) throws LackingWoodDataException{
+    public Wood(String Species, String Type, String Origin, String Color, Double AvailableStock) throws LackingWoodDataException {
         if(Species==null||Species.isEmpty()){ throw new LackingWoodDataException("Species field invalid");}
         if(Type==null||Type.isEmpty()){ throw new LackingWoodDataException("Type field invalid");}
         if(Origin==null||Origin.isEmpty()){ throw new LackingWoodDataException("Origin field invalid");}

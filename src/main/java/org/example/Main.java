@@ -106,6 +106,7 @@ public class Main {
         //LAB4
 
         //zad1
+        /*
         System.out.println("zad1");
 
         Drzewo drzewo = new Drzewo(1L, "Sosna", 18.5, 40.0, false);
@@ -162,5 +163,6 @@ public class Main {
         drzewo1 = kopia.przywrocEncje();
 
         System.out.println("Po wycofaniu: " + drzewo1.getGatunek() + ", " + drzewo1.isSciete());
+        */
     }
 }
